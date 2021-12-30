@@ -1,0 +1,13 @@
+$.ajax({
+				url:"",
+				data:{},
+				dataType:"json",
+				type:"get",
+				success:function (data){
+					/*
+						data
+
+					*/
+				}
+
+			})

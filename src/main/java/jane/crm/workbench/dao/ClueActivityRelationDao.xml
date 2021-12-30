@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jane.crm.workbench.dao.ClueActivityRelationDao">
+
+    <select id="showActivityByClueId" resultType="jane.crm.workbench.domain.Activity">
+        select a.id,a.name,a.startDate,a.endDate,u.name as owner
+        from tbl_activity a
+        join (SELECT activityId from tbl_clue_activity_relation car join tbl_clue c on car.clueId=c.id where c.id=#{clueId}) x
+        on a.id = x.activityId
+        join tbl_user u
+        on a.owner=u.id
+
+    </select>
+
+
+    <delete id="unbund">
+        delete from tbl_clue_activity_relation
+        where clueId=#{clueId} and activityId=#{activityId}
+    </delete>
+
+    <insert id="bund">
+        insert into tbl_clue_activity_relation(id,clueId,activityId)
+        values
+        (#{id},#{clueId},#{activityId})
+    </insert>
+</mapper>
